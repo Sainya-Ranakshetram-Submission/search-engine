@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"context"
-	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
@@ -13,7 +12,7 @@ import (
 	"github.com/projectdiscovery/subfinder/v2/pkg/runner"
 )
 
-func main() {
+func find_subdomain(url string) []string {
 	config := runner.ConfigFile{
 		// Use the default list of resolvers by marshaling it to the config
 		Resolvers: resolve.DefaultResolvers,
@@ -42,6 +41,5 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Printf("%s", data)
+	return []string{string(data)}
 }
