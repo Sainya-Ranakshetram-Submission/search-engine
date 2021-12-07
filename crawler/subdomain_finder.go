@@ -30,9 +30,12 @@ func find_subdomain(url string) []string {
 		MaxEnumerationTime: 10, // MaxEnumerationTime is the maximum amount of time in mins to wait for enumeration
 		YAMLConfig:         config,
 	})
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	buf := bytes.Buffer{}
-	err = runnerInstance.EnumerateSingleDomain(context.Background(), "projectdiscovery.io", []io.Writer{&buf})
+	err = runnerInstance.EnumerateSingleDomain(context.Background(), url, []io.Writer{&buf})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -43,3 +46,5 @@ func find_subdomain(url string) []string {
 	}
 	return []string{string(data)}
 }
+
+func main() {}
