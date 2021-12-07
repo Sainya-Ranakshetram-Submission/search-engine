@@ -38,6 +38,18 @@ class CrawledWebPagesAdmin(admin.ModelAdmin):
         (_('Request Body'), {'fields': ('keywords_meta_tags', 'keywords_in_site', 'stripped_request_body', 'keywords_ranking')}),
         (_('Last Crawled'), {'fields': ('last_crawled',)})
     )
+
+@admin.register(ToBeCrawledWebPages)
+class ToBeCrawledWebPagesAdmin(admin.ModelAdmin):
+    list_per_page = 34
+    list_display = ('url', 'http_status', 'last_crawled')
+    list_filter=list_display[-1:]
+    readonly_fields = list_display[1:]
+    fieldsets = (
+        (_("Url"), {"fields": ("url",)}),
+        (_('Status'), {'fields': ("http_status",)}),
+        (_('Last Crawled'), {'fields': ('last_crawled',)})
+    )
     
 
 @admin.register(LogEntry)
