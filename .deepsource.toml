@@ -1,6 +1,14 @@
 version = 1
 
 [[analyzers]]
+name = "go"
+enabled = true
+
+  [analyzers.meta]
+  import_root = "github.com/Sainya-Ranakshetram-Submission/search-engine"
+  dependencies_vendored = true
+
+[[analyzers]]
 name = "secrets"
 enabled = true
 
@@ -17,4 +25,8 @@ enabled = true
 
 [[analyzers]]
 name = "test-coverage"
+enabled = true
+
+[[transformers]]
+name = "gofmt"
 enabled = true
