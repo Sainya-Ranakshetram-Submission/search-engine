@@ -97,4 +97,7 @@ class CrawledWebPages(models.Model):
     def save(self,*args,**kwargs):
         self.last_crawled = now()
         super().save(*args,**kwargs)
+        
+        
+
     
