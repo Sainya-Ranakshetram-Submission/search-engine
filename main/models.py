@@ -110,6 +110,7 @@ class CrawledWebPages(models.Model):
 
 class ToBeCrawledWebPages(models.Model):
     url = models.CharField(max_length=250,help_text=_('Only domain name'),unique=True)
+    scan_internal_links=models.BooleanField(default=True)
     http_status = models.IntegerField(default=StatusCodes.OK, choices=StatusCodes.choices)
     last_crawled=models.DateTimeField(default=now)
     

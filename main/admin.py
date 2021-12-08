@@ -13,6 +13,7 @@ class CrawledWebPagesAdmin(admin.ModelAdmin):
         "http_status",
         "uses",
         "ip_address",
+        "scan_internal_links",
         "sitemap_filepath",
         "robot_txt_filepath",
         "last_crawled"
@@ -42,12 +43,12 @@ class CrawledWebPagesAdmin(admin.ModelAdmin):
 @admin.register(ToBeCrawledWebPages)
 class ToBeCrawledWebPagesAdmin(admin.ModelAdmin):
     list_per_page = 34
-    list_display = ('url', 'http_status', 'last_crawled')
+    list_display = ('url', 'http_status', 'last_crawled','scan_internal_links')
     list_filter=list_display[-1:]
     readonly_fields = list_display[1:]
     fieldsets = (
         (_("Url"), {"fields": ("url",)}),
-        (_('Status'), {'fields': ("http_status",)}),
+        (_('Status'), {'fields': ("http_status","scan_internal_links")}),
         (_('Last Crawled'), {'fields': ('last_crawled',)})
     )
     
