@@ -6,6 +6,9 @@ from crawler import standalone_django
 from collections.abc import Iterable
 from main.models import ToBeCrawledWebPages, CrawledWebPages
 from django.utils.html import strip_tags
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize 
 import spacy
 
 lib = cdll.LoadLibrary("./subdomain_finder.so")
@@ -41,9 +44,19 @@ class KonohagakureCrawler(scrapy.Spider):
                 response_model.stripped_request_body = text
                 nlp = spacy.load("en_core_web_sm")
                 doc = nlp(text)
-                keywords = doc.ents
+                response_model.keywords_in_site = str(doc.ents)
                 
+                stop_words = set(stopwords.words('english'))
+                tf_score = {}
+                for each_word in total_words:
+                    each_word = each_word.replace('.','')
+                    if each_word not in stop_words:
+                        if each_word in tf_score:
+                            tf_score[each_word] += 1
+                        else:
+                            tf_score[each_word] = 1
+
+                # Dividing by total_word_length for each dictionary element
+                tf_score.update((x, y/int(total_word_length)) for x, y in tf_score.items())
+                response_model.keywords_ranking = tf_score
             response_model.save()
-        
-        
-        

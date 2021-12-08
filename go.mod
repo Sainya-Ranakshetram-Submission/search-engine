@@ -1,4 +1,4 @@
-module crawler/subdomain_finder
+module crawler/crawler/spiders/subdomain_finder.go
 
 go 1.17
 

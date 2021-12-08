@@ -6,13 +6,14 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"unsafe"
 
 	"github.com/projectdiscovery/subfinder/v2/pkg/passive"
 	"github.com/projectdiscovery/subfinder/v2/pkg/resolve"
 	"github.com/projectdiscovery/subfinder/v2/pkg/runner"
 )
 
-func find_subdomain(url string) []string {
+func find_subdomain(url string) unsafe.Pointer {
 	config := runner.ConfigFile{
 		// Use the default list of resolvers by marshaling it to the config
 		Resolvers: resolve.DefaultResolvers,
@@ -44,7 +45,8 @@ func find_subdomain(url string) []string {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return []string{string(data)}
+	result := []string{string(data)}
+	return unsafe.Pointer(&result)
 }
 
 func main() {}
