@@ -12,7 +12,7 @@ def home(request):
     return render(
         request, 
         'index.html',
-        {'auto_suggestions', auto_suggestions}
+        {'auto_suggestions': auto_suggestions}
     )
  
 @sync_to_async
