@@ -2,7 +2,12 @@
 <div class="container mt-5">
     <div class="input-group mb-3" data-aos="fade-right" style="border-radius: 34px;">
         <button class="input-group-text" type="submit"><i class='bx bx-search-alt' style="font-size: 30px;"></i></button>
-        <input type="search" class="form-control form-control-lg" placeholder="Search...">
+        <input type="search" list="autosearchOptions" class="form-control form-control-lg" placeholder="Search..."> {%if auto_suggestions %}
+        <datalist id="autosearchOptions">
+            {% for i in auto_suggestions %}
+            <option value="{{i}}">
+                {% endfor %}
+          </datalist> {% endif %}
     </div>
 
     <div class="my-3 p-3 bg-body rounded shadow-sm">
