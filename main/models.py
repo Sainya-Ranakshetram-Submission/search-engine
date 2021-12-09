@@ -96,6 +96,13 @@ class CrawledWebPages(models.Model):
     
     def save(self,*args,**kwargs):
         self.last_crawled = now()
+        if self.url.startwith('https://') or self.url.startwith('http://') or self.url.startwith('://'):
+            self.url = self.url.replace('https://','')
+            self.url = self.url.replace('http://','')
+            self.url = self.url.replace('://','')
+        self.url = self.url.strip('https://')
+        self.url = self.url.strip('http://')
+        self.url = self.url.strip('://')
         super().save(*args,**kwargs)
     
     class Meta:
@@ -117,6 +124,13 @@ class ToBeCrawledWebPages(models.Model):
     
     def save(self,*args,**kwargs):
         self.last_crawled = now()
+        if self.url.startwith('https://') or self.url.startwith('http://') or self.url.startwith('://'):
+            self.url = self.url.replace('https://','')
+            self.url = self.url.replace('http://','')
+            self.url = self.url.replace('://','')
+        self.url = self.url.strip('https://')
+        self.url = self.url.strip('http://')
+        self.url = self.url.strip('://')
         super().save(*args,**kwargs)
     
     class Meta:
