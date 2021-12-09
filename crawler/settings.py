@@ -6,7 +6,7 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-
+from .common_user_agent import return_random_user_agent
 BOT_NAME = 'crawler'
 
 SPIDER_MODULES = ['crawler.spiders']
@@ -14,7 +14,7 @@ NEWSPIDER_MODULE = 'crawler.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Konohagakure Search crawler'
+USER_AGENT = return_random_user_agent()
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
