@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
+from bs4 import BeautifulSoup
 
 from django.conf import settings
 
@@ -63,7 +64,7 @@ class KonohagakureCrawler(scrapy.Spider):
             response_model = CrawledWebPages(
                 url=response.url, 
                 http_status=response.status,
-                ip_address=response.ip_address,
+                ip_address=str(response.ip_address),
                 scan_internal_links=False,
 
             )
@@ -78,21 +79,25 @@ class KonohagakureCrawler(scrapy.Spider):
                 stripped_request_body = None
             response.scan_internal_links = self.scan_internal_links
             if response.text:
-                text = strip_tags(response.text)
-                response_model.stripped_request_body = text[:250] or stripped_request_body
-                nlp = spacy.load("en-core-web-md")
-                doc = nlp(text)
-                response_model.keywords_in_site = str(doc.ents)
-                
-                stop_words = set(stopwords.words('english'))
-                tf_score = {}
-                for each_word in total_words:
-                    each_word = each_word.replace('.','')
-                    if each_word not in stop_words:
-                        if each_word in tf_score:
-                            tf_score[each_word] += 1
-                        else:
-                            tf_score[each_word] = 1
-                tf_score.update((x, y/int(total_word_length)) for x, y in tf_score.items())
-                response_model.keywords_ranking = tf_score
+                def remove_tags(html):
+                    soup = BeautifulSoup(html, "html.parser")
+                    for data in soup(['style', 'script','noscript']):
+                        data.decompose()
+                    return ' '.join(soup.stripped_strings)
+            text = strip_tags(remove_tags(response.xpath('//body').get()))
+            response_model.stripped_request_body = text[:250] or stripped_request_body
+            nlp = spacy.load("en_core_web_md")
+            doc = nlp(text)
+            response_model.keywords_in_site = str(doc.ents)
+            stop_words = set(stopwords.words('english'))
+            tf_score = {}
+            for each_word in text.split():
+                each_word = each_word.replace('.','')
+                if each_word not in stop_words:
+                    if each_word in tf_score:
+                        tf_score[each_word] += 1
+                    else:
+                        tf_score[each_word] = 1
+            tf_score.update((x, y/int(len(text.split()))) for x, y in tf_score.items())
+            response_model.keywords_ranking = tf_score
             response_model.save()

@@ -102,9 +102,7 @@ class CrawledWebPages(models.Model):
         ordering = ("uses",)
         verbose_name_plural = _('Crawled Web Pages')
         indexes = [
-            models.Index(fields=['url', 'ip_address'],name="url_and_ip_address_idx",include=['keywords_meta_tags','keywords_in_site','stripped_request_body','keywords_ranking','uses']),
-            models.Index(fields=['url'],name="url_idx",include=['keywords_meta_tags','keywords_in_site','stripped_request_body','keywords_ranking','uses']),
-            models.Index(fields=['ip_address'],name="ip_address_idx",include=['keywords_meta_tags','keywords_in_site','stripped_request_body','keywords_ranking','uses']),
+            models.Index(fields=['url'],name="url_idx",include=['uses']),
         ]
 
 

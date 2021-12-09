@@ -9,6 +9,7 @@ pip install --upgrade -r requirements.min.txt
 ```
 ```python
 python -m spacy download en_core_web_md
+python -m nltk.downloader stopwords
 ```
 
 ```go
