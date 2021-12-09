@@ -74,7 +74,7 @@ rcssmin==1.1.0
 redis==3.5.3
 regex==2021.11.10
 requests==2.26.0
-rjsmin==1.1.0
+rjsmin==1.2.0
 sacremoses==0.0.46
 Scrapy==2.5.1
 service-identity==21.1.0
