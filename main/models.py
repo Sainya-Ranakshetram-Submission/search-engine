@@ -96,13 +96,10 @@ class CrawledWebPages(models.Model):
     
     def save(self,*args,**kwargs):
         self.last_crawled = now()
-        if self.url.startwith('https://') or self.url.startwith('http://') or self.url.startwith('://'):
+        if self.url.startswith('https://') or self.url.startswith('http://'):
             self.url = self.url.replace('https://','')
             self.url = self.url.replace('http://','')
-            self.url = self.url.replace('://','')
-        self.url = self.url.strip('https://')
-        self.url = self.url.strip('http://')
-        self.url = self.url.strip('://')
+            self.url = self.url.strip()
         super().save(*args,**kwargs)
     
     class Meta:
@@ -124,13 +121,10 @@ class ToBeCrawledWebPages(models.Model):
     
     def save(self,*args,**kwargs):
         self.last_crawled = now()
-        if self.url.startwith('https://') or self.url.startwith('http://') or self.url.startwith('://'):
+        if self.url.startswith('https://') or self.url.startswith('http://'):
             self.url = self.url.replace('https://','')
             self.url = self.url.replace('http://','')
-            self.url = self.url.replace('://','')
-        self.url = self.url.strip('https://')
-        self.url = self.url.strip('http://')
-        self.url = self.url.strip('://')
+            self.url = self.url.strip()
         super().save(*args,**kwargs)
     
     class Meta:
@@ -138,6 +132,4 @@ class ToBeCrawledWebPages(models.Model):
         verbose_name_plural = _('To Be Crawled Web Pages')
         indexes = [
             models.Index(fields=['url','http_status'],name="url_and_http_status_idx",include=['last_crawled']),
-            models.Index(fields=['url'],name="url_tobecrawled_idx",include=['last_crawled']),
-            models.Index(fields=['http_status'],name="http_status_idx",include=['last_crawled']),
         ]

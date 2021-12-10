@@ -155,7 +155,7 @@ STATIC_URL = "/static/"
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "compressor.finders.CompressorFinder",
+    # "compressor.finders.CompressorFinder",
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -184,15 +184,15 @@ COMPRESS_PRECOMPILERS = (
     ("text/x-scss", "django_libsass.SassCompiler"),
 )
 COMPRESS_CSS_HASHING_METHOD = "content"
-COMPRESS_FILTERS = {
-    "css": [
-        "compressor.filters.css_default.CssAbsoluteFilter",
-        "compressor.filters.cssmin.rCSSMinFilter",
-    ],
-    "js": [
-        "compressor.filters.jsmin.JSMinFilter",
-    ],
-}
+# COMPRESS_FILTERS = {
+#     "css": [
+#         "compressor.filters.css_default.CssAbsoluteFilter",
+#         "compressor.filters.cssmin.rCSSMinFilter",
+#     ],
+#     "js": [
+#         "compressor.filters.jsmin.JSMinFilter",
+#     ],
+# }
 HTML_MINIFY = True
 KEEP_COMMENTS_ON_MINIFYING = False
 

@@ -45,7 +45,7 @@ class ToBeCrawledWebPagesAdmin(admin.ModelAdmin):
     list_per_page = 34
     list_display = ('url', 'http_status', 'last_crawled','scan_internal_links')
     list_filter=list_display[-1:]
-    readonly_fields = list_display[1:]
+    readonly_fields = list_display[1:-1]
     fieldsets = (
         (_("Url"), {"fields": ("url",)}),
         (_('Status'), {'fields': ("http_status","scan_internal_links")}),

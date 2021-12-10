@@ -1,6 +1,26 @@
 from __future__ import annotations
 
+import os
+from pathlib import Path
 from bs4 import BeautifulSoup
+
+from django.conf import settings
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+dotenv_file = BASE_DIR / ".env"
+if os.path.isfile(dotenv_file):
+    import dj_database_url
+    import django
+    import dotenv
+    dotenv.load_dotenv(dotenv_file)
+    settings.configure(
+        DATABASES={"default": dj_database_url.config(default=os.getenv("DATABASE_URL"))},
+        INSTALLED_APPS=['main.apps.MainConfig'],
+    )
+    django.setup()
+else:
+    raise RuntimeError('DATABASE_URL is not set in environment variable')
 
 import subprocess
 from collections.abc import Iterable
@@ -15,19 +35,30 @@ from main.models import CrawledWebPages, ToBeCrawledWebPages
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
-class KonohagakureCrawler(scrapy.Spider):
-    name : str = 'konohagakure_to_be_crawled'
+def give_start_urls(scan_internal_links: bool, domain: str):
+    if scan_internal_links:
+        a=subprocess.run(["subfinder", "-d", domain], capture_output=True)
+        return list(map(lambda a: f'https://{a}',str(a.stdout.decode()).strip().split('\n')))
+    return [f'https://{domain}']
+
+class KonohagakureCrawlerCommandLine(scrapy.Spider):
+    name : str = 'konohagakure_to_be_crawled_command_line'
     
     def __init__(self, *args,**kwargs):
         self.allowed_domains: list = [kwargs.get('allowed_domains')]
-        self.scan_internal_links: bool = False
-        self.start_urls = list(map(lambda a: f'https://{a}', self.allowed_domains))
+        self.scan_internal_links: bool = True or kwargs.get('scan_internal_links')
+        self.start_urls = give_start_urls(self.scan_internal_links, self.allowed_domains[0])
         if ToBeCrawledWebPages.objects.filter(url=self.allowed_domains[0]).exists():
             ToBeCrawledWebPages.objects.filter(url=self.allowed_domains[0]).delete()
         super().__init__(*args,**kwargs)
 
     def parse(self, response):
         if response.status == 200:
+            if self.scan_internal_links:
+                for link in LinkExtractor(deny_extensions=scrapy.linkextractors.IGNORED_EXTENSIONS).extract_links(response):
+                    if not ToBeCrawledWebPages.objects.filter(url=link.url).exists():
+                        model = ToBeCrawledWebPages(url=link.url,scan_internal_links=False)
+                        model.save()
             try:
                 response_model = CrawledWebPages(
                     url=response.url, 
@@ -77,4 +108,3 @@ class KonohagakureCrawler(scrapy.Spider):
                 response_model.save()
             except:
                 pass
-            
