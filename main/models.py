@@ -78,7 +78,8 @@ class StatusCodes(models.IntegerChoices):
     NETWORK_AUTH_REQ=511, _('Network Authentication Required')
 
 class CrawledWebPages(models.Model):
-    url = models.CharField(max_length=250,help_text=_('Only domain name'),unique=True)
+    url = models.CharField(max_length=500,help_text=_('Only domain name'),unique=True)
+    title = models.CharField(max_length=500,help_text=_('The Title'),blank=True,null=True)
     sitemap_filepath = models.SlugField(max_length=250,help_text=_('The sitemap.xml file path'),null=True,blank=True)
     robot_txt_filepath = models.SlugField(max_length=250,help_text=_('The robot.txt file path'),null=True,blank=True)
     uses = models.PositiveBigIntegerField(default=0)
