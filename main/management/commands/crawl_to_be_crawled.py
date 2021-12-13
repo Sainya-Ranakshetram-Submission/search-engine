@@ -34,7 +34,8 @@ class Command(BaseCommand):
                     crawl.delay(i.url)
                     self.stdout.write(self.style.SUCCESS("Done"))
     
-    def give_start_urls(self,domain: str):
+    @staticmethod
+    def give_start_urls(domain: str):
         a=subprocess.run(["subfinder", "-d", domain], capture_output=True)
         return list(map(lambda a: f'https://{a}',str(a.stdout.decode()).strip().split('\n')))
         
