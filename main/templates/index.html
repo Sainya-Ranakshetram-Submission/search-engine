@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}{% load static %}{% block body %}
 <div class="s006">
-    <form action="?" method="GET">{% csrf_token %}
+    <form action="{% url 'search' %}" method="GET">{% csrf_token %}
         <fieldset>
             <div class="inner-form">
                 <div class="input-field form-floating mb-3" data-aos="fade-right">

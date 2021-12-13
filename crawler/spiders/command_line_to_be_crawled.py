@@ -69,7 +69,7 @@ class KonohagakureCrawlerCommandLine(scrapy.Spider):
                 )
                 try:
                     keywords_meta_tags=response.xpath("//meta[@name='keywords']/@content")[0].extract()
-                    response_model.keywords_meta_tags=keywords_meta_tags
+                    response_model.keywords_meta_tags=list(set(keywords_meta_tags.split()+keywords_meta_tags.split(',')))
                 except:
                     pass
                 try:
@@ -83,10 +83,9 @@ class KonohagakureCrawlerCommandLine(scrapy.Spider):
                             data.decompose()
                         return ' '.join(soup.stripped_strings)
                     text = strip_tags(remove_tags(response.xpath('//body').get()))
-                    response_model.stripped_request_body = text[:250]
                     nlp = spacy.load("en_core_web_md")
                     doc = nlp(text)
-                    response_model.keywords_in_site = str(doc.ents)
+                    response_model.keywords_in_site = list(doc.ents)
                     stop_words = set(stopwords.words('english'))
                     tf_score = {}
                     for each_word in text.split():

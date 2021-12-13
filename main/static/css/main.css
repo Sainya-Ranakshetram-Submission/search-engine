@@ -921,6 +921,7 @@ legend {
 body {
     background: url("../images/home.jpeg");
     background-size: cover;
+    background-attachment: fixed;
     background-position: center center;
 }
 

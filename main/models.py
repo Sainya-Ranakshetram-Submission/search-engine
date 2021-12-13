@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils.timezone import now
+from django.contrib.postgres.fields import ArrayField
 
 
 class StatusCodes(models.IntegerChoices):
@@ -86,9 +87,12 @@ class CrawledWebPages(models.Model):
     ip_address = models.GenericIPAddressField(protocol='both', unpack_ipv4=True,null=True,blank=True)
     http_status = models.IntegerField(default=StatusCodes.OK, choices=StatusCodes.choices)
     scan_internal_links=models.BooleanField(default=True)
-    keywords_meta_tags = models.TextField(null=True,blank=True)
-    keywords_in_site = models.TextField(null=True,blank=True)
+    
+    keywords_meta_tags = ArrayField(models.CharField(max_length=500),null=True,blank=True,default=list)
+    keywords_in_site = ArrayField(models.CharField(max_length=500),null=True,blank=True,default=list)
+    
     stripped_request_body = models.TextField(null=True,blank=True,help_text=_('Mainly the description to display'))
+    
     keywords_ranking=models.JSONField(null=True,blank=True,default=dict)
     last_crawled=models.DateTimeField(default=now)
     

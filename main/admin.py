@@ -10,6 +10,7 @@ from django.utils.translation import ngettext
 class CrawledWebPagesAdmin(admin.ModelAdmin):
     list_display = (
         "url",
+        "title",
         "http_status",
         "uses",
         "ip_address",
@@ -32,7 +33,7 @@ class CrawledWebPagesAdmin(admin.ModelAdmin):
     search_fields = list_display+list_filter
     list_per_page = 34
     fieldsets = (
-        (_("Url"), {"fields": ("url",)}),
+        (_("Url"), {"fields": ("url","title")}),
         (_('Rank'), {"fields": ("uses",)}),
         (_('Status'), {'fields': ("http_status",)}),
         (_('Crawl File Path'), {'fields': ("sitemap_filepath", "robot_txt_filepath", "scan_internal_links")}),
