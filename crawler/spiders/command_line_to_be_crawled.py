@@ -37,7 +37,7 @@ from nltk.tokenize import word_tokenize
 
 def give_start_urls(scan_internal_links: bool, domain: str):
     if scan_internal_links:
-        a=subprocess.run(["subfinder", "-d", domain], capture_output=True)
+        a=subprocess.run(["subfinder", "-d", domain], capture_output=True, check=True)
         return list(map(lambda a: f'https://{a}',str(a.stdout.decode()).strip().split('\n')))
     return [f'https://{domain}']
 

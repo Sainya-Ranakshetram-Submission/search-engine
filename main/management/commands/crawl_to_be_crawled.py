@@ -36,6 +36,6 @@ class Command(BaseCommand):
     
     @staticmethod
     def give_start_urls(domain: str):
-        a=subprocess.run(["subfinder", "-d", domain], capture_output=True)
+        a=subprocess.run(["subfinder", "-d", domain], capture_output=True, check=True)
         return list(map(lambda a: f'https://{a}',str(a.stdout.decode()).strip().split('\n')))
         
