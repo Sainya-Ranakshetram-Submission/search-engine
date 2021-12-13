@@ -17,13 +17,13 @@ app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
 @app.task
 def crawl(domain: str):
-    subprocess.run(["scrapy", "crawl", "konohagakure_to_be_crawled", "-a", f"allowed_domains={domain}"], capture_output=False)
+    subprocess.run(["scrapy", "crawl", "konohagakure_to_be_crawled", "-a", f"allowed_domains={domain}"], capture_output=False, check=True)
 
 @app.task
 def find_subdomains(domain: str):
     try:
         if i.scan_internal_links:
-            a=subprocess.run(["subfinder", "-d", domain], capture_output=True)
+            a=subprocess.run(["subfinder", "-d", domain], capture_output=True, check=True)
             subdomains = list(map(lambda a: f'https://{a}',str(a.stdout.decode()).strip().split('\n')))
             for j in subdomains:
                 try:
