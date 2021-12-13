@@ -91,7 +91,7 @@ thinc==8.0.13
 tokenizers==0.10.3
 torch==1.10.0
 tqdm==4.62.3
-transformers==4.12.5
+transformers==4.13.0
 Twisted==21.7.0
 twisted-iocpsupport==1.0.2
 typer==0.4.0
