@@ -5,7 +5,6 @@
 import subprocess
 
 from django.core.management.base import BaseCommand
-from search_engine.celery import crawl, find_subdomains
 from main.models import ToBeCrawledWebPages, CrawledWebPages
 
 
@@ -28,14 +27,25 @@ class Command(BaseCommand):
         for i in ToBeCrawledWebPages.objects.iterator():
             if not CrawledWebPages.objects.filter(url__in=i.url).exists():
                 if i.scan_internal_links:
-                    find_subdomains.delay(i.url)
+                    self.find_subdomains(i.url)
                 if not CrawledWebPages.objects.filter(url__in=i.url).exists():
                     self.stdout.write(self.style.NOTICE(f'Start Crawling {i}'))
-                    crawl.delay(i.url)
+                    subprocess.run(["scrapy", "crawl", "konohagakure_to_be_crawled", "-a", f"allowed_domains={i.url}"], capture_output=False, check=True)
                     self.stdout.write(self.style.SUCCESS("Done"))
     
     @staticmethod
     def give_start_urls(domain: str):
         a=subprocess.run(["subfinder", "-d", domain], capture_output=True, check=True)
         return list(map(lambda a: f'https://{a}',str(a.stdout.decode()).strip().split('\n')))
+    
+    @staticmethod
+    def find_subdomains(domain: str):
+        a=subprocess.run(["subfinder", "-d", domain], capture_output=True, check=True)
+        subdomains = list(map(lambda a: f'https://{a}',str(a.stdout.decode()).strip().split('\n')))
+        for j in subdomains:
+            try:
+                a=ToBeCrawledWebPages(url=domain,scan_internal_links=False)
+                a.save()
+            except:
+                pass
         
