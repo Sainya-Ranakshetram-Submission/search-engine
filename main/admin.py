@@ -1,5 +1,5 @@
 from django.contrib import admin, messages
-from .models import *
+from .models import CrawledWebPages, ToBeCrawledWebPages
 from django.utils.translation import gettext_lazy as _
 from django.contrib.admin.models import LogEntry
 from django.contrib.auth.admin import Group

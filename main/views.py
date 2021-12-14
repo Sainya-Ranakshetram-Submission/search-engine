@@ -19,7 +19,7 @@ from nltk.tokenize import word_tokenize
 from requests import get, utils
 from textblob import TextBlob
 
-from .models import *
+from .models import CrawledWebPages, ToBeCrawledWebPages
 
 nlp = spacy.load("en_core_web_md")
 stop_words = set(stopwords.words('english'))
