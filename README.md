@@ -18,3 +18,7 @@ go mod init crawler/crawler/spiders/subdomain_finder.go
 go mod tidy
 go build -o crawler/crawler/spiders/subdomain_finder.so -buildmode=c-shared ./crawler/crawler/spiders/subdomain_finder.go
 ```
+
+```python
+uvicorn search_engine.asgi:application --reload --lifespan off
+```

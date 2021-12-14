@@ -2,6 +2,7 @@ import time
 import urllib
 from functools import lru_cache
 from typing import Optional
+from django.contrib.postgres.search import SearchQuery, SearchVector
 
 import nltk
 import requests
@@ -122,19 +123,19 @@ def search_results(request):
         auto_suggestions = request.session.get('recorded_keywords') + [query]
     else:
         auto_suggestions = [query]
-    query_correct = TextBlob(query).correct().__str__()
-    query_list=query_correct.split()
-    
+        request.session['recorded_keywords'] = auto_suggestions
+    query_correct = TextBlob(query).correct().__str__()    
     start_time = time.time()
-    data1 = CrawledWebPages.objects.filter(url__in=query_list)
-    data2 = CrawledWebPages.objects.filter(keywords_meta_tags__icontains=query_list)
-    data3 = CrawledWebPages.objects.filter(keywords_in_site__icontains=query_list)
-    data4 = CrawledWebPages.objects.filter(stripped_request_body__in=query_list)
     
-    if data1.union(data2, data3, data4).count() > 0:
-        results = data1.union(data2, data3, data4).all()
+    data1 = CrawledWebPages.objects.annotate(search=SearchVector('url', 'title','keywords_meta_tags','keywords_in_site','stripped_request_body','keywords_ranking')).filter(search=query_correct.lower())
+    data2 = CrawledWebPages.objects.annotate(search=SearchVector('url', 'title','keywords_meta_tags','keywords_in_site','stripped_request_body','keywords_ranking')).filter(search=request.GET.get("q"))
+
+    if data1.union(data2).count() > 0:
+        results = data1.union(data2).all()
     else:
         results = search(query)
+
+        
     end_time = time.time()
     
     if isinstance(results, list):
