@@ -44,7 +44,7 @@ class Command(BaseCommand):
         subdomains = list(map(lambda a: f'https://{a}',str(a.stdout.decode()).strip().split('\n')))
         for j in subdomains:
             try:
-                a=ToBeCrawledWebPages(url=domain,scan_internal_links=False)
+                a=ToBeCrawledWebPages(url=j,scan_internal_links=False)
                 a.save()
             except:
                 pass
