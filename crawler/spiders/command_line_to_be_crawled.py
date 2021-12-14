@@ -105,5 +105,5 @@ class KonohagakureCrawlerCommandLine(scrapy.Spider):
                     except:
                         response_model.stripped_request_body = stripped_request_body
                 response_model.save()
-            except:
-                pass
+            except Exception as e:
+                print(e)

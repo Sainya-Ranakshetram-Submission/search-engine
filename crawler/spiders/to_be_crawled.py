@@ -15,6 +15,9 @@ from main.models import CrawledWebPages, ToBeCrawledWebPages
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
+nlp = spacy.load("en_core_web_md")
+stop_words = set(stopwords.words('english'))
+
 class KonohagakureCrawler(scrapy.Spider):
     name : str = 'konohagakure_to_be_crawled'
     
@@ -33,7 +36,7 @@ class KonohagakureCrawler(scrapy.Spider):
                     url=response.url, 
                     http_status=response.status,
                     ip_address=str(response.ip_address),
-                    scan_internal_links=self.scan_internal_links,
+                    scan_internal_links=True,
 
                 )
                 try:
@@ -52,10 +55,9 @@ class KonohagakureCrawler(scrapy.Spider):
                             data.decompose()
                         return ' '.join(soup.stripped_strings)
                     text = strip_tags(remove_tags(response.xpath('//body').get()))
-                    nlp = spacy.load("en_core_web_md")
+                    title = strip_tags(remove_tags(response.xpath('//title').get()))
                     doc = nlp(text)
                     response_model.keywords_in_site = list(doc.ents)
-                    stop_words = set(stopwords.words('english'))
                     tf_score = {}
                     for each_word in text.split():
                         each_word = each_word.replace('.','')
@@ -66,6 +68,7 @@ class KonohagakureCrawler(scrapy.Spider):
                                 tf_score[each_word] = 1
                     tf_score.update((x, y/int(len(text.split()))) for x, y in tf_score.items())
                     response_model.keywords_ranking = tf_score
+                    response_modal.title = title
                 try:
                     response_model.stripped_request_body = stripped_request_body or text[:250]
                 except:
@@ -74,6 +77,6 @@ class KonohagakureCrawler(scrapy.Spider):
                     except:
                         response_model.stripped_request_body = stripped_request_body
                 response_model.save()
-            except:
-                pass
+            except Exception as e:
+                print(e)
             

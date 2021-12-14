@@ -127,8 +127,8 @@ def search_results(request):
     query_correct = TextBlob(query).correct().__str__()    
     start_time = time.time()
     
-    data1 = CrawledWebPages.objects.annotate(search=SearchVector('url', 'title','keywords_meta_tags','keywords_in_site','stripped_request_body','keywords_ranking')).filter(search=query_correct.lower())
-    data2 = CrawledWebPages.objects.annotate(search=SearchVector('url', 'title','keywords_meta_tags','keywords_in_site','stripped_request_body','keywords_ranking')).filter(search=request.GET.get("q"))
+    data1 = CrawledWebPages.objects.annotate(search=SearchVector('url', 'ip_address','title','keywords_meta_tags','keywords_in_site','stripped_request_body','keywords_ranking')).filter(search=query_correct.lower())
+    data2 = CrawledWebPages.objects.annotate(search=SearchVector('url', 'ip_address','title','keywords_meta_tags','keywords_in_site','stripped_request_body','keywords_ranking')).filter(search=request.GET.get("q"))
 
     if data1.union(data2).count() > 0:
         results = data1.union(data2).all()
