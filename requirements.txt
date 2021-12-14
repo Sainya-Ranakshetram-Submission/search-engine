@@ -1,4 +1,4 @@
-﻿amqp==5.0.6
+﻿amqp==5.0.7
 asgiref==3.4.1
 attrs==21.2.0
 Automat==20.2.0
@@ -45,7 +45,7 @@ jmespath==0.10.0
 joblib==1.1.0
 kombu==5.2.2
 langcodes==3.3.0
-lxml==4.6.4
+lxml==4.6.5
 MarkupSafe==2.0.1
 murmurhash==1.0.6
 nltk==3.6.5
