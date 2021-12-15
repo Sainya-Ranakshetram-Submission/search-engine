@@ -16,7 +16,7 @@ WORKDIR /usr/src/app
 COPY requirements.min.txt ./
 
 RUN rabbitmq-plugins enable --offline rabbitmq_mqtt rabbitmq_federation_management rabbitmq_stomp
-RUN pip install --no-cache-dir -r requirements.min.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.min.txt
 RUN python -m spacy download en_core_web_md
 RUN python -m nltk.downloader stopwords
 RUN python -m nltk.downloader words
