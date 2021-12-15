@@ -28,6 +28,7 @@ stop_words = set(stopwords.words('english'))
 
 @sync_to_async
 @require_GET
+@cache_page(60 * 15)
 def home(request):
     auto_suggestions = None
     if request.session.get('recorded_keywords'):
@@ -40,6 +41,7 @@ def home(request):
 
 @sync_to_async
 @require_http_methods(["GET", "POST"])
+@cache_page(60 * 15)
 def submit_site(request):
     if request.method == "POST":
         site = request.POST.get('site_url')
@@ -49,6 +51,7 @@ def submit_site(request):
  
 @sync_to_async
 @require_GET
+@cache_page(60 * 15)
 def search_results(request):
     @lru_cache
     def search(term: str, num_results: Optional[int] = 15, lang: Optional[str] = "en", proxy=None) -> list:

@@ -20,5 +20,5 @@ go build -o crawler/crawler/spiders/subdomain_finder.so -buildmode=c-shared ./cr
 ```
 
 ```python
-uvicorn search_engine.asgi:application --reload --lifespan off
+uvicorn search_engine.asgi:application --reload --lifespan off --host 0.0.0.0
 ```
