@@ -15,10 +15,10 @@ from django.shortcuts import render
 from django.utils.html import escape, escapejs, strip_tags
 from django.views.decorators.http import require_GET
 from nltk.corpus import stopwords
+from django.views.decorators.cache import cache_page
 from nltk.tokenize import word_tokenize
 from requests import get, utils
 from textblob import TextBlob
-
 from .models import CrawledWebPages, ToBeCrawledWebPages
 
 nlp = spacy.load("en_core_web_md")
@@ -37,7 +37,7 @@ def home(request):
     )
  
 @sync_to_async
-@require_GET   
+@require_GET
 def search_results(request):
     @lru_cache
     def search(term: str, num_results: Optional[int] = 15, lang: Optional[str] = "en", proxy=None) -> list:
@@ -106,6 +106,11 @@ def search_results(request):
                     except:
                         pass
                     try:
+                        doc = nlp(description.getText())
+                        model.keywords_in_site=list(doc.ents)
+                    except:
+                        pass
+                    try:
                         model.save()
                     except:
                         pass
@@ -151,7 +156,7 @@ def search_results(request):
         results = paginator.page(1)
     except EmptyPage:
         results = paginator.page(paginator.num_pages)
-    
+    page_range = paginator.get_elided_page_range(number=page)
     spelling_msg_display = False
     if query != query_correct:
         auto_suggestions += [query_correct]
@@ -167,6 +172,7 @@ def search_results(request):
             'spelling_msg_display': spelling_msg_display,
             'results': results,
             'time': end_time-start_time,
-            'auto_suggestions': auto_suggestions
+            'auto_suggestions': auto_suggestions,
+            'page_range':page_range
         }
     )

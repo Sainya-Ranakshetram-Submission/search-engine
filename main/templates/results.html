@@ -1,6 +1,6 @@
-{% extends 'layout.html' %}{% load static %}{% block body %}
-<div class="container mt-5">
-    <form action="?" method="GET">{% csrf_token %}
+{% extends 'layout.html' %} {% load static %}{% block body %}
+<div class="container mt-5 md-5">
+    <form action="?" method="GET">
         <div class="input-group mb-3" data-aos="fade-right" style="border-radius: 34px;">
             <button class="input-group-text" type="submit"><i class='bx bx-search-alt' style="font-size: 30px;"></i></button>
             <input type="search" name="q" list="autosearchOptions" value="{{value_in_input}}" class="form-control form-control-lg" placeholder="Search..."> {%if auto_suggestions %}
@@ -12,9 +12,10 @@
         </div>
     </form>
 
-    <div class="my-3 p-3 bg-body rounded shadow-sm ">
-        <h6 class="border-bottom pb-2 mb-0">About {{data_fetched}} results in {{time}} sec</h6>
-        {% for i in results %}
+    <div class="my-3 p-3 bg-body rounded shadow-sm mb-3">
+        <h6 class="{% if not spelling_msg_display %}border-bottom{% endif %}pb-2 mb-0">About {{data_fetched}} results in {{time}} sec</h6>
+        {% if spelling_msg_display %}
+        <i class="border-bottom pb-2 mb-0">Did you meant <a href="{% url 'search' %}?q={{corrected_input}}">{{corrected_input}}</a> ??</i> {% endif %} {% for i in results %}
         <div class="d-flex text-muted pt-3" data-aos="fade-right">
             <p class="pb-3 mb-0 small lh-sm border-bottom">
                 <a href="https://{{i.url}}"><strong class="d-block text-gray-dark">{{i.title}}</strong></a> {{i.stripped_request_body}}
@@ -24,11 +25,25 @@
         </div>
         <hr/> {% endfor %}
 
-        <small class="d-block text-end mt-3">
-          <a href="#">All updates</a>
+        <small class="d-flex justify-content-center d-block text-end mt-3">
+                <span class="btn-group" role="group" aria-label="Page">
+                    {% for i in page_range %}
+                    <a href="{% if not i == '...' %}?q={{value_in_input}}&page={{i}}{% else %}#{% endif %}" class="btn btn-outline-info">{{i}}</a>
+                    {% endfor %}
+                </span>
         </small>
     </div>
-
-
 </div>
+
+
+<div class="container mt-5 md-5">
+    <div class="my-3 p-3 bg-body rounded shadow-sm mb-3 d-flex justify-content-center text-muted">
+        <img src="{% static 'images/logo.png' %}" class="img-fluid img-thumbnail rounded-circle" width="50px" height="50px" alt="..."><br/>
+        <h3>Konohagakure Search</h3>
+    </div>
+    <div class="d-flex text-muted pt-3" data-aos="fade-right">
+        <a href="https://github.com/Tanzanite-lpu" title="Github Repository" target="_blank"><i class='bx bxl-github'></i>fhjdfgj</a>
+    </div>
+</div>
+
 {% endblock %}
