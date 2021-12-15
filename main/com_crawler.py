@@ -50,11 +50,6 @@ def keywords_gen_and_rank(body: str):
 @lru_cache
 def formatter(content: str) -> dict:
     return_dict={}
-    def remove_tags(html: str):
-        soup = BeautifulSoup(html, "html.parser")
-        for data in soup(['style', 'script','noscript']):
-            data.decompose()
-        return ' '.join(soup.stripped_strings)
     soup = BeautifulSoup(content, 'html.parser')
     try:
         title = soup.find('title')
