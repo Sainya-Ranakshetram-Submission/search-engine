@@ -15,6 +15,7 @@ Just run
 ```docker
 docker build .
 ```
+Also check this [out](https://stackoverflow.com/questions/59608788/unable-to-start-docker-desktop-on-windows-10)
 If you wish you can do teh necessary image tagging.
 
 After building the image install the docker image.
