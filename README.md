@@ -9,10 +9,23 @@ Have a search engine which takes keyword/expression as an input and crawls the w
 
 To Submit: - A Readme having steps to install and run the application - Entire code repo - Implement your solution/model in Dockers only. - A video of the working search engine
 ```
+## Building Docker Image
+Just run 
+
+```docker
+docker build .
+```
+If you wish you can do teh necessary image tagging.
+
+After building the image install the docker image.
+
+## Hosting Guide (With the docker)
+To run **Konohagakure Search** you need [python3.9](https://www.python.org/downloads/release/python-390/), latest version of [golang](https://go.dev/),
+[postgres](https://www.postgresql.org/), [rabbitmq](https://www.rabbitmq.com/) and [redis](https://redis.io/)
+
 
 
 ```python
-pip install rcssmin==1.0.6 --install-option="--without-c-extensions"
 pip install --upgrade -r requirements.min.txt
 ```
 ```python
