@@ -21,7 +21,7 @@ class Command(BaseCommand):
             except:
                 try:
                     update_dict = formatter(requests_crawl(i.url))
-                    i.objects.update(**update_dict)
+                    CrawledWebPages.objects.update_or_create(**update_dict)
                     self.stdout.write(self.style.SUCCESS("Done"))
                 except Exception as e:
                     self.stdout.write(self.style.ERROR(e))
