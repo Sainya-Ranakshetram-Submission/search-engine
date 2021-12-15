@@ -1,6 +1,7 @@
 import time
 import urllib
 from functools import lru_cache
+from django.contrib import messages
 from typing import Optional
 from django.contrib.postgres.search import SearchQuery, SearchVector
 
@@ -14,6 +15,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render
 from django.utils.html import escape, escapejs, strip_tags
 from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_http_methods
 from nltk.corpus import stopwords
 from django.views.decorators.cache import cache_page
 from nltk.tokenize import word_tokenize
@@ -35,6 +37,15 @@ def home(request):
         'index.html',
         {'auto_suggestions': auto_suggestions}
     )
+
+@sync_to_async
+@require_http_methods(["GET", "POST"])
+def submit_site(request):
+    if request.method == "POST":
+        site = request.POST.get('site_url')
+        ToBeCrawledWebPages.objects.filter(url=site).update_or_create(url=site)
+        messages.success(request,f"The crawling data was updated :)")
+    return render(request, 'submit_site.html')
  
 @sync_to_async
 @require_GET

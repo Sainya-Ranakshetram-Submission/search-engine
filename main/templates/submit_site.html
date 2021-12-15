@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}{% load static %}{% block body %}
+<div class="s006">
+    <div class="container mt-5 bg-white rounded">
+        <form class="mb-5 container p-5" method="POST" action="?">{% csrf_token %}
+            <center>
+                <h2>Submit the site to be crawled</h2>
+            </center>
+            {% for message in messages %}
+            <div {% if message.tags %} class="alert alert-{{message.tags}} alert-dismissible fade show" {% endif %} role="alert">
+                {{message|safe}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            <div class="mb-3">
+                <label class="form-label">Website url</label>
+                <input type="url" class="form-control" name="site_url" required placeholder="https://example.com">
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" required>
+                <label class="form-check-label">Are you sure?</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
