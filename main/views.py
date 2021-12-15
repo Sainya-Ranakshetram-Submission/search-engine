@@ -46,7 +46,7 @@ def submit_site(request):
     if request.method == "POST":
         site = request.POST.get('site_url')
         ToBeCrawledWebPages.objects.filter(url=site).update_or_create(url=site)
-        messages.success(request,f"The crawling data was updated :)")
+        messages.success(request,"The crawling data was updated :)")
     return render(request, 'submit_site.html')
  
 @sync_to_async
