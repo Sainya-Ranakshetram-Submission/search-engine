@@ -45,7 +45,7 @@ jmespath==0.10.0
 joblib==1.1.0
 kombu==5.2.2
 langcodes==3.3.0
-lxml==4.6.5
+lxml==4.7.1
 MarkupSafe==2.0.1
 murmurhash==1.0.6
 nltk==3.6.5
