@@ -7,6 +7,7 @@ FROM rabbitmq:3.8-alpine
 
 ENV POSTGRES_PASSWORD docker
 ENV POSTGRES_DB search_engine
+ENV DATABASE_URL postgres://postgres:docker@localhost:5432/search_engine
 COPY world.sql /docker-entrypoint-initdb.d/
 
 RUN apk add --update redis
