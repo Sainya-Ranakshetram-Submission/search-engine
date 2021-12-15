@@ -19,11 +19,13 @@ If you wish you can do teh necessary image tagging.
 
 After building the image install the docker image.
 
-## Hosting Guide (With the docker)
+## Hosting Guide (without the docker)
 To run **Konohagakure Search** you need [python3.9](https://www.python.org/downloads/release/python-390/), latest version of [golang](https://go.dev/),
 [postgres](https://www.postgresql.org/), [rabbitmq](https://www.rabbitmq.com/) and [redis](https://redis.io/)
 
+See their installation instruction and download it properly.
 
+After downloading the above mentioned programs, now do the following:
 
 ```python
 pip install --upgrade -r requirements.min.txt
