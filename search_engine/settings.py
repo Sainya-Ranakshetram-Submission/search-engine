@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
     "corsheaders",
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
