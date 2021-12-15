@@ -58,7 +58,7 @@ def formatter(content: str) -> dict:
         pass
     try:
         description_site = soup.find('body')
-        doc = nlp(description.getText())
+        doc = nlp(description_site.getText())
         keywords_in_site=list(doc.ents)
         return_dict.update({
             'keywords_in_site':keywords_in_site,

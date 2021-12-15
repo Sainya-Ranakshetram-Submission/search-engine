@@ -68,7 +68,7 @@ class KonohagakureCrawler(scrapy.Spider):
                                 tf_score[each_word] = 1
                     tf_score.update((x, y/int(len(text.split()))) for x, y in tf_score.items())
                     response_model.keywords_ranking = tf_score
-                    response_modal.title = title
+                    response_model.title = title
                 try:
                     response_model.stripped_request_body = stripped_request_body or text[:250]
                 except:
