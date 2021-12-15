@@ -1,4 +1,4 @@
-FROM alpine 
+FROM alpine:latest
 FROM redis:apline
 FROM postgres:alpine
 FROM python:3-alpine
@@ -9,7 +9,7 @@ ENV POSTGRES_PASSWORD docker
 ENV POSTGRES_DB search_engine
 ENV DATABASE_URL postgres://postgres:docker@localhost:5432/search_engine
 
-RUN apk add --update redis
+RUN apk add --no-cache --update redis:apline
 
 WORKDIR /usr/src/app
 

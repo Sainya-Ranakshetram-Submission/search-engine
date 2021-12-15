@@ -71,7 +71,7 @@ class KonohagakureCrawler(scrapy.Spider):
                     response_model.title = title
                 try:
                     response_model.stripped_request_body = stripped_request_body or text[:250]
-                except:
+                except: 
                     try:
                         response_model.stripped_request_body = stripped_request_body or text
                     except:
