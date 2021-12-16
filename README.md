@@ -158,3 +158,6 @@ If you are `Linux` then you can run this command also instead of the above one:
 - `crawl_to_be_crawled` : Scraps newly entered sites in database || The sites that needs to be crawled ||
 - `migrate_default_to_be_crawl_data` : Enters BASE data of the websites that needs to be crawled, its about 10 Lakh sites
 
+## Distributed Crawlers
+For the distributed web crawlers refer to the following [scrapy documentation link](https://docs.scrapy.org/en/latest/topics/practices.html#distributed-crawls)
+
