@@ -213,3 +213,9 @@ CELERY_ACCEPT_CONTENT = [
     "application/json",
 ]
 CELERY_TASK_SERIALIZER = CELERY_RESULT_SERIALIZER = "json"
+
+if ast.literal_eval(os.environ.get("LOGGING", "True").capitalize()):
+    from .django_logging import LOGGING
+
+    LOGGING = LOGGING
+    logging.config.dictConfig(LOGGING)
