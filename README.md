@@ -97,12 +97,12 @@ celery -A search_engine beat -l INFO --scheduler django_celery_beat.schedulers:D
 #### 10. Run the application
 - For windows, mc-os, linux
 
-        Without IP address bound
+Without IP address bound
 ```console
     uvicorn search_engine.asgi:application --reload --lifespan off
 ```
 
-        IP address bound
+IP address bound
 ```console
      uvicorn search_engine.asgi:application --reload --lifespan off --host 0.0.0.0
 ```
