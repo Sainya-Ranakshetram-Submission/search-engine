@@ -60,7 +60,7 @@ class KonohagakureCrawlerCommandLine(scrapy.Spider):
                         model = ToBeCrawledWebPages(url=link.url,scan_internal_links=False)
                         model.save()
             try:
-                response_model = CrawledWebPages(
+                response_model = dict(
                     url=response.url, 
                     http_status=response.status,
                     ip_address=str(response.ip_address),
@@ -69,7 +69,7 @@ class KonohagakureCrawlerCommandLine(scrapy.Spider):
                 )
                 try:
                     keywords_meta_tags=response.xpath("//meta[@name='keywords']/@content")[0].extract()
-                    response_model.keywords_meta_tags=list(set(keywords_meta_tags.split()+keywords_meta_tags.split(',')))
+                    response_model.update(dict(keywords_meta_tags=list(set(keywords_meta_tags.split()+keywords_meta_tags.split(',')))))
                 except:
                     pass
                 try:
@@ -85,7 +85,7 @@ class KonohagakureCrawlerCommandLine(scrapy.Spider):
                     text = strip_tags(remove_tags(response.xpath('//body').get()))
                     nlp = spacy.load("en_core_web_md")
                     doc = nlp(text)
-                    response_model.keywords_in_site = list(doc.ents)
+                    response_model.update(dict(keywords_in_site = list(doc.ents)))
                     stop_words = set(stopwords.words('english'))
                     tf_score = {}
                     for each_word in text.split():
@@ -96,14 +96,14 @@ class KonohagakureCrawlerCommandLine(scrapy.Spider):
                             else:
                                 tf_score[each_word] = 1
                     tf_score.update((x, y/int(len(text.split()))) for x, y in tf_score.items())
-                    response_model.keywords_ranking = tf_score
+                    response_model.update(dict(keywords_ranking = tf_score))
                 try:
-                    response_model.stripped_request_body = stripped_request_body or text[:250]
+                    response_model.update(dict(stripped_request_body = stripped_request_body or text[:250]))
                 except:
                     try:
-                        response_model.stripped_request_body = stripped_request_body or text
+                        response_model.update(dict(stripped_request_body = stripped_request_body or text))
                     except:
-                        response_model.stripped_request_body = stripped_request_body
-                response_model.save()
+                        response_model.update(dict(stripped_request_body = stripped_request_body))
+                CrawledWebPages.objects.update_or_create(**response_model)
             except Exception as e:
                 print(e)

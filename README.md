@@ -163,3 +163,22 @@ For the distributed web crawlers refer to the following [scrapy documentation li
 
 ## Running crawler manually from command line
 There are 3 different ways in order to achieve this
+
+#### 1. crawl_already_crawled
+This is custom django management command and it starts crawling the already crawled and stored sites and then updates it
+```python
+python manage.py crawl_already_crawled
+```
+
+#### 2. crawl_to_be_crawled
+This is custom django management command and it starts crawling the site which were entered using either the `migrate_default_to_be_crawl_data` custom command or it was entered using `submit_site/` endpoint
+```python manage.py crawl_to_be_crawled
+```
+
+#### 3. Scrapy Command Line Crawler
+This is a scrapy project that crawls the site using the command line
+Here in `example.com` replace it with the site you want to crawl (without `http` or https`)
+```scrapy
+scrapy crawl konohagakure_to_be_crawled_command_line -a allowed_domains=example.com
+```
+
