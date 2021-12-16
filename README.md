@@ -12,6 +12,8 @@ To Submit: - A Readme having steps to install and run the application - Entire c
 ```
 
 ## Vulnerabilities the application that it address
+It address the following [SANS Top 25 Most Dangerous Software Errors](https://www.sans.org/top25-software-errors/) and [OWASP Top 10 Vulnerabilities](https://www.veracode.com/security/owasp-top-10)
+
 1. Injection
 2. Broken Authentication
 3. Sensitive Data Exposure
