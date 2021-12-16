@@ -74,7 +74,7 @@ python manage.py migrate_default_to_be_crawl_data
 ```
 I have also given some crawled datasets for the refrence, you can see it here [data_backup](https://github.com/Sainya-Ranakshetram-Submission/search-engine/blob/master/data_backup)
 
-#### 8. Createsuperuser for the site
+#### 8. Create a superuser for the site
 ```python
 python manage.py createsuperuser
 ```
