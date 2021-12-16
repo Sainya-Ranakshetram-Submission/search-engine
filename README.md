@@ -95,7 +95,19 @@ celery -A search_engine beat -l INFO --scheduler django_celery_beat.schedulers:D
 ```
 
 #### 10. Run the application
+- For windows, mc-os, linux
 
-```python
-uvicorn search_engine.asgi:application --reload --lifespan off --host 0.0.0.0
+        Without IP address bound
+        ```console
+            uvicorn search_engine.asgi:application --reload --lifespan off
+        ```
+
+        IP address bound
+        ```console
+            uvicorn search_engine.asgi:application --reload --lifespan off --host 0.0.0.0
+        ```
+
+If you are Linux then you can run this command also instead of the above one:
+```console
+    gunicorn search_engine.asgi:application -k search_engine.workers.DynamicUvicornWorker --timeout 500
 ```
