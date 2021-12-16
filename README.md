@@ -52,6 +52,13 @@ python -m nltk.downloader words
 ```go
 go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 ```
+#### 4. Setup the environment variables
+Rename the [example.env](https://github.com/Sainya-Ranakshetram-Submission/search-engine/blob/master/example.env) to `.env` and setup the environment variables according to your choice.
+
+#### 5. Create a database
+Now open `pgadmin` and create a database named `search_engine`. After creating the database reassign the `DATABASE_URL` value acordingly in `.env` file.
+Note please read this [also](https://github.com/jacobian/dj-database-url#url-schema)
+
 
 ```python
 uvicorn search_engine.asgi:application --reload --lifespan off --host 0.0.0.0
