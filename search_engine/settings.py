@@ -1,5 +1,5 @@
 from pathlib import Path
-import os, ast
+import os, ast, logging
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -216,6 +216,7 @@ CELERY_TASK_SERIALIZER = CELERY_RESULT_SERIALIZER = "json"
 
 if ast.literal_eval(os.environ.get("LOGGING", "True").capitalize()):
     from .django_logging import LOGGING
-
-    LOGGING = LOGGING
-    logging.config.dictConfig(LOGGING)
+    try:
+        logging.config.dictConfig(LOGGING)
+    except:
+        pass

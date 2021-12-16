@@ -125,6 +125,7 @@ def search_results(request):
                         model.keywords_in_site=list(doc.ents)
                     except:
                         pass
+                    model.uses = 1
                     try:
                         model.save()
                     except:
@@ -155,7 +156,7 @@ def search_results(request):
         data2.update(uses=F('uses')+1)
         results = data1.union(data2).all()
     else:
-        results = search(query)
+        results = search(request.GET.get("q"))
 
         
     end_time = time.time()
