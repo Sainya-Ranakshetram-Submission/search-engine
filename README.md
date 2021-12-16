@@ -27,10 +27,20 @@ To run **Konohagakure Search** you need [python3.9](https://www.python.org/downl
 
 See their installation instruction and download it properly.
 
-After downloading the above mentioned softwares, now do the following steps:
+After downloading the above mentioned softwares, now do the following steps after opening the terminal:
 
 #### 1. Clone the repository
 Clone the repository using git
+```git
+git clone https://github.com/Sainya-Ranakshetram-Submission/search-engine.git
+```
+#### 2. Install the virtual environment
+```python
+pip install --upgrade virtualenv
+virtualenv env
+env/scripts/activate
+```
+#### 3. Install the dependencies
 ```python
 pip install --upgrade -r requirements.min.txt
 ```
@@ -39,11 +49,8 @@ python -m spacy download en_core_web_md
 python -m nltk.downloader stopwords
 python -m nltk.downloader words
 ```
-
 ```go
-go mod init crawler/crawler/spiders/subdomain_finder.go
-go mod tidy
-go build -o crawler/crawler/spiders/subdomain_finder.so -buildmode=c-shared ./crawler/crawler/spiders/subdomain_finder.go
+go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 ```
 
 ```python
