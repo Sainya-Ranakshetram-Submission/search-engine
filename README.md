@@ -1,4 +1,7 @@
 # Konohagakure Search
+
+![Minato Namikaze Konohagakure Yondaime Hokage](https://i.imgur.com/WrNbHOT.jpeg "Minato Namikaze")
+
 We were asked to do the following:
 ```
 Develop an efficient Search Engine with the following features it should have distributed crawlers to crawl the private/air-gapped networks (data sources in these networks might include websites, files, databases) and must work behind sections of networks secured by firewalls
@@ -191,4 +194,5 @@ Here in `example.com` replace it with the site you want to crawl (without `http`
 scrapy crawl konohagakure_to_be_crawled_command_line -a allowed_domains=example.com
 ```
 
-![Minato Namikaze Konohagakure Yondaime Hokage](https://i.imgur.com/WrNbHOT.jpeg "Minato Namikaze")
+[![Secure Coding Challenge | Submission](http://img.youtube.com/vi/tn4KmIxrOhs/0.jpg)](http://www.youtube.com/watch?v=tn4KmIxrOhs "Secure Coding Challenge | Submission")
+
