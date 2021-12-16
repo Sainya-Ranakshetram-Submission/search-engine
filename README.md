@@ -59,6 +59,19 @@ Rename the [example.env](https://github.com/Sainya-Ranakshetram-Submission/searc
 Now open `pgadmin` and create a database named `search_engine`. After creating the database reassign the `DATABASE_URL` value acordingly in `.env` file.
 Note please read this [also](https://github.com/jacobian/dj-database-url#url-schema)
 
+#### 6. Start Rabitmq and Redis Instance
+Read their docs regarding how to start them. [redis](https://redis.io/documentation) [rabbitmq](https://rabbitmq.com/documentation.html)
+
+#### 7. Migrate the data
+```python
+python manage.py migrate
+```
+
+And to migrate the 10 Lakh dataset of the website for the crawler to crawl, do
+```python
+python manage.py migrate_default_to_be_crawl_data
+```
+
 
 ```python
 uvicorn search_engine.asgi:application --reload --lifespan off --host 0.0.0.0
