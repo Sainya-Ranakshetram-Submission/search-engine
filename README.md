@@ -10,6 +10,20 @@ Have a search engine which takes keyword/expression as an input and crawls the w
 
 To Submit: - A Readme having steps to install and run the application - Entire code repo - Implement your solution/model in Dockers only. - A video of the working search engine
 ```
+
+## Vulnerabilities the application that it address
+1. Injection
+2. Broken Authentication
+3. Sensitive Data Exposure
+4. XML External Entities
+5. Broken Access Control
+6. Security Misconfiguration
+7. Cross-Site Scripting
+8. Insecure Deserialization
+9. Using Components with Known Vulnerabilities
+10. Insufficient Logging and Monitoring
+
+
 ## Building Docker Image
 Just run 
 
