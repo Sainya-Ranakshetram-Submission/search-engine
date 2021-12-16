@@ -22,7 +22,31 @@ To Submit: - A Readme having steps to install and run the application - Entire c
 8. Insecure Deserialization
 9. Using Components with Known Vulnerabilities
 10. Insufficient Logging and Monitoring
-
+11. Improper Restriction of Operations within the Bounds of a Memory Buffer
+12. Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
+13. Improper Input Validation
+14. Information Exposure
+15. Out-of-bounds Read
+16. Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
+17. Use After Free
+18. Integer Overflow or Wraparound
+19. Cross-Site Request Forgery (CSRF)
+20. Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')
+21. Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
+22. Out-of-bounds Write
+23. Improper Authentication
+24. NULL Pointer Dereference
+25. Incorrect Permission Assignment for Critical Resource
+26. Unrestricted Upload of File with Dangerous Type
+27. Improper Restriction of XML External Entity Reference
+28. Improper Control of Generation of Code ('Code Injection')
+29. Use of Hard-coded Credentials
+30. Uncontrolled Resource Consumption
+31. Missing Release of Resource after Effective Lifetime
+32. Untrusted Search Path
+33. Deserialization of Untrusted Data
+34. Improper Privilege Management
+35. Improper Certificate Validation
 
 ## Building Docker Image
 Just run 
