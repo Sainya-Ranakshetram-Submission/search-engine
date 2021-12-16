@@ -37,6 +37,7 @@ git clone https://github.com/Sainya-Ranakshetram-Submission/search-engine.git
 #### 2. Install the virtual environment
 ```python
 pip install --upgrade virtualenv
+cd search-engine
 virtualenv env
 env/scripts/activate
 ```
