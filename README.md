@@ -161,3 +161,5 @@ If you are `Linux` then you can run this command also instead of the above one:
 ## Distributed Crawlers
 For the distributed web crawlers refer to the following [scrapy documentation link](https://docs.scrapy.org/en/latest/topics/practices.html#distributed-crawls)
 
+## Running crawler manually from command line
+
