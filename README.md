@@ -113,8 +113,8 @@ If you are `Linux` then you can run this command also instead of the above one:
 ```
 
 ## Python custom commands reference
-- add_celery_tasks_in_panel : Add the celery tasks to the django panel
-- crawl_already_crawled : Scraps already scrapped/crawled sites in database
-- crawl_to_be_crawled : Scraps newly entered sites in database || The sites that needs to be crawled ||
-- migrate_default_to_be_crawl_data : Enters BASE data of the websites that needs to be crawled, its about 10 Lakh sites
+- `add_celery_tasks_in_panel` : Add the celery tasks to the django panel
+- `crawl_already_crawled` : Scraps already scrapped/crawled sites in database
+- `crawl_to_be_crawled` : Scraps newly entered sites in database || The sites that needs to be crawled ||
+- `migrate_default_to_be_crawl_data` : Enters BASE data of the websites that needs to be crawled, its about 10 Lakh sites
 
