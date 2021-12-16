@@ -27,10 +27,20 @@ To run **Konohagakure Search** you need [python3.9](https://www.python.org/downl
 
 See their installation instruction and download it properly.
 
-After downloading the above mentioned softwares, now do the following steps:
+After downloading the above mentioned softwares, now do the following steps after opening the terminal:
 
 #### 1. Clone the repository
 Clone the repository using git
+```git
+git clone https://github.com/Sainya-Ranakshetram-Submission/search-engine.git
+```
+#### 2. Install the virtual environment
+```python
+pip install --upgrade virtualenv
+virtualenv env
+env/scripts/activate
+```
+#### 3. Install the dependencies
 ```python
 pip install --upgrade -r requirements.min.txt
 ```
@@ -39,12 +49,29 @@ python -m spacy download en_core_web_md
 python -m nltk.downloader stopwords
 python -m nltk.downloader words
 ```
-
 ```go
-go mod init crawler/crawler/spiders/subdomain_finder.go
-go mod tidy
-go build -o crawler/crawler/spiders/subdomain_finder.so -buildmode=c-shared ./crawler/crawler/spiders/subdomain_finder.go
+go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 ```
+#### 4. Setup the environment variables
+Rename the [example.env](https://github.com/Sainya-Ranakshetram-Submission/search-engine/blob/master/example.env) to `.env` and setup the environment variables according to your choice.
+
+#### 5. Create a database
+Now open `pgadmin` and create a database named `search_engine`. After creating the database reassign the `DATABASE_URL` value acordingly in `.env` file.
+Note please read this [also](https://github.com/jacobian/dj-database-url#url-schema)
+
+#### 6. Start Rabitmq and Redis Instance
+Read their docs regarding how to start them. [redis](https://redis.io/documentation) [rabbitmq](https://rabbitmq.com/documentation.html)
+
+#### 7. Migrate the data
+```python
+python manage.py migrate
+```
+
+And to migrate the 10 Lakh dataset of the website for the crawler to crawl, do
+```python
+python manage.py migrate_default_to_be_crawl_data
+```
+
 
 ```python
 uvicorn search_engine.asgi:application --reload --lifespan off --host 0.0.0.0
