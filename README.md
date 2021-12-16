@@ -71,7 +71,7 @@ And to migrate the 10 Lakh dataset of the website for the crawler to crawl, do
 ```python
 python manage.py migrate_default_to_be_crawl_data
 ```
-
+I have also given some crawled datasets for the refrence, you can see it here [data_backup](https://github.com/Sainya-Ranakshetram-Submission/search-engine/blob/master/data_backup)
 
 ```python
 uvicorn search_engine.asgi:application --reload --lifespan off --host 0.0.0.0
