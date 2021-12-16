@@ -23,5 +23,8 @@ RUN python -m nltk.downloader stopwords
 RUN python -m nltk.downloader words
 RUN go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 RUN python manage.py migrate
+RUN python manage.py add_celery_tasks_in_panel
+RUN celery -A search_engine worker --loglevel=INFO
+RUN celery -A search_engine beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
 
 CMD ["uvicorn",  "manage.py", "search_engine.asgi:application", "--reload", "--lifespan", "off"]

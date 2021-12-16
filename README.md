@@ -81,7 +81,11 @@ python manage.py createsuperuser
 It asks for some necessary information, give it then it will create a superuser for the site.
 
 #### 9. Running the celery worker and beat
-Open two different terminals
+Now run this command in ther terminal
+```python
+python manage.py add_celery_tasks_in_panel
+```
+Now, open two different terminals
 And run these commands respectively :-
 ```celery
 celery -A search_engine worker --loglevel=INFO
