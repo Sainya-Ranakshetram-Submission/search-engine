@@ -11,6 +11,15 @@ Have a search engine which takes keyword/expression as an input and crawls the w
 To Submit: - A Readme having steps to install and run the application - Entire code repo - Implement your solution/model in Dockers only. - A video of the working search engine
 ```
 
+## Features
+- Corrected Spelling suggestions
+- Auto Suggested
+- 3 different types of crawler
+- Distributed crawlers
+- A site submit form
+- Blazingly fast
+And so on...
+
 ## Vulnerabilities the application that it address
 It address the following [SANS Top 25 Most Dangerous Software Errors](https://www.sans.org/top25-software-errors/) and [OWASP Top 10 Vulnerabilities](https://www.veracode.com/security/owasp-top-10)
 
