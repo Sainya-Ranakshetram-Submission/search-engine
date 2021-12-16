@@ -1,5 +1,5 @@
 """
-Add the tasks to the panel
+Add the celery tasks to the djangopanel
 """
 from django.core.management.base import BaseCommand
 from django.utils.timezone import now
@@ -7,7 +7,7 @@ from django_celery_beat.models import IntervalSchedule, PeriodicTask
 
 
 class Command(BaseCommand):
-    help = "Add the tasks to the panel"
+    help = "Add the celery tasks to the django panel"
     requires_system_checks = output_transaction = True
         
     def handle(self, *args, **options):
