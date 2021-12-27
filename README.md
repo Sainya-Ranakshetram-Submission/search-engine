@@ -184,7 +184,8 @@ python manage.py crawl_already_crawled
 
 #### 2. crawl_to_be_crawled
 This is custom django management command and it starts crawling the site which were entered using either the `migrate_default_to_be_crawl_data` custom command or it was entered using `submit_site/` endpoint
-```python manage.py crawl_to_be_crawled
+```python 
+python manage.py crawl_to_be_crawled
 ```
 
 #### 3. Scrapy Command Line Crawler
