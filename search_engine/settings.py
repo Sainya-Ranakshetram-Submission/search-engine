@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     "corsheaders",
     'django_celery_beat',
+    "compressor"
 ]
 
 MIDDLEWARE = [
@@ -157,7 +158,7 @@ STATIC_URL = "/static/"
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    # "compressor.finders.CompressorFinder",
+    "compressor.finders.CompressorFinder",
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -186,15 +187,15 @@ COMPRESS_PRECOMPILERS = (
     ("text/x-scss", "django_libsass.SassCompiler"),
 )
 COMPRESS_CSS_HASHING_METHOD = "content"
-# COMPRESS_FILTERS = {
-#     "css": [
-#         "compressor.filters.css_default.CssAbsoluteFilter",
-#         "compressor.filters.cssmin.rCSSMinFilter",
-#     ],
-#     "js": [
-#         "compressor.filters.jsmin.JSMinFilter",
-#     ],
-# }
+COMPRESS_FILTERS = {
+    "css": [
+       "compressor.filters.css_default.CssAbsoluteFilter",
+        "compressor.filters.cssmin.rCSSMinFilter",
+    ],     
+    "js": [
+        "compressor.filters.jsmin.JSMinFilter",
+    ],
+}
 HTML_MINIFY = True
 KEEP_COMMENTS_ON_MINIFYING = False
 
@@ -213,6 +214,13 @@ CELERY_ACCEPT_CONTENT = [
     "application/json",
 ]
 CELERY_TASK_SERIALIZER = CELERY_RESULT_SERIALIZER = "json"
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': os.environ.get('REDIS_URL', 'redis://127.0.0.1:6379') #expected port, otherwise you can alter it
+    }
+}
 
 if ast.literal_eval(os.environ.get("LOGGING", "True").capitalize()):
     from .django_logging import LOGGING

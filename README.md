@@ -96,6 +96,7 @@ env/scripts/activate
 #### 3. Install the dependencies
 ```python
 pip install --upgrade -r requirements.min.txt
+pip install --upgrade django
 ```
 ```python
 python -m spacy download en_core_web_md
@@ -126,13 +127,19 @@ python manage.py migrate_default_to_be_crawl_data
 ```
 I have also given some crawled datasets for the reference, you can see it here [data_backup](https://github.com/Sainya-Ranakshetram-Submission/search-engine/blob/master/data_backup)
 
-#### 8. Create a superuser for the site
+#### 8. Compress the static files
+Run the following commands to compress the static files (This step is not there in youtube video):
+```python
+python manage.py collectcompress
+```
+
+#### 9. Create a superuser for the site
 ```python
 python manage.py createsuperuser
 ```
 It asks for some necessary information, give it then it will create a superuser for the site.
 
-#### 9. Running the celery worker and beat
+#### 10. Running the celery worker and beat
 Now run this command in ther terminal
 ```python
 python manage.py add_celery_tasks_in_panel
@@ -140,13 +147,14 @@ python manage.py add_celery_tasks_in_panel
 Now, open two different terminals
 And run these commands respectively :-
 ```celery
-celery -A search_engine worker --loglevel=INFO
+    celery -A search_engine worker --loglevel=INFO
 ```
 ```celery
-celery -A search_engine beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    celery -A search_engine beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
 ```
 
-#### 10. Run the application
+#### 11. Run the application
+Before running the application don't forget to start the redis also :)
 - For `windows`, `mac-os`, `linux`
 
 Without IP address bound
@@ -156,10 +164,10 @@ Without IP address bound
 
 IP address bound
 ```console
-     uvicorn search_engine.asgi:application --reload --lifespan off --host 0.0.0.0
+    uvicorn search_engine.asgi:application --reload --lifespan off --host 0.0.0.0
 ```
 
-If you are `Linux` then you can run this command also instead of the above one:
+If you are in `Linux` OS then you can run this command also instead of the above one:
 ```console
     gunicorn search_engine.asgi:application -k search_engine.workers.DynamicUvicornWorker --timeout 500
 ```

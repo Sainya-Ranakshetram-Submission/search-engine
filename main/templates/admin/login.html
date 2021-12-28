@@ -1,5 +1,5 @@
-{% extends "admin/login.html" %} {% load i18n static %}{% block extrastyle %} {{ block.super }}
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+{% extends "admin/login.html" %} {% load i18n static %}{% load compress %}{% block extrastyle %} {{ block.super }}
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> {% compress css %}
 <style>
     body {
         background-image: url('{% static "images/hokage.jpeg" %}') !important;
@@ -21,7 +21,7 @@
         margin-bottom: 0% !important;
     }
 </style>
-{% endblock %} {% block branding %}
+{% endcompress %} {% endblock %} {% block branding %}
 <h1>
     <span style="color: #daa83c !important ; font-weight: bold;">Konohagakure Search</span>
     <br />
@@ -32,10 +32,10 @@
     Admin Panel to manage this Robust Search Engine
 </p>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
+{% compress js %}
 <script>
     let e = document.getElementById("container");
     e.setAttribute("data-aos", "flip-left");
     AOS.init();
 </script>
-{% endblock %}
+{% endcompress %} {% endblock %}
